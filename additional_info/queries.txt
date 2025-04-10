@@ -1,0 +1,21 @@
+CREATE DATABASE joystick_game;
+
+-- Use the newly created database
+USE joystick_game;
+
+-- Create the users table for login
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the leaderboard table with a foreign key reference to the users table
+CREATE TABLE leaderboard (
+    username VARCHAR(50) NOT NULL,
+    score INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(username),  -- Ensures each user has only one entry in the leaderboard
+    FOREIGN KEY (username) REFERENCES users(username) -- Ensures username must exist in the users table
+);
